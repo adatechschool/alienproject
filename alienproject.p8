@@ -11,6 +11,7 @@ function _init()
 	astro3={x=rnd(112),y=(30+rnd(60)),sprite=(4+rnd(5))}
 	astronautes={astro1,astro2,astro3}
 	create_stars()
+	explosions={}
 end
 
 
@@ -33,7 +34,10 @@ function _update()
 	if (btn(❎)) move_alien=true
 	if (move_alien) bounce()
  kill()
-end
+	end
+	if (btnp(⬇️)) then
+	explode(astro1.x+4,astro1.y+4,2)
+end 
 
 function _draw()
 	cls()
@@ -43,6 +47,7 @@ function _draw()
 	spr(astro1.sprite,astro1.x,astro1.y)
 	spr(astro2.sprite,astro2.x,astro2.y)
 	spr(astro3.sprite,astro3.x,astro3.y)
+ draw_explosions()
 	movement_bar()
 	draw_stars()
 	message()
@@ -86,7 +91,7 @@ function bounce()
 		alien.y += dy
 		if alien.x<0
 	 or alien.x>120
-	 or collision(alien,astro1)
+	 or collision(alien,astro1) 
 	 or collision(alien,astro2)
 	 or collision(alien,astro3) then
 		dx=-dx
@@ -192,6 +197,30 @@ function draw_stars()
  	pset(s.x,s.y,s.col,s.speed)
  	end
  end 
+-->8
+-- explosions 
+
+function explode(x,y,nb)
+	while(nb>0) do 
+		explo={}
+		explo.x=x
+		explo.y=y
+		explo.r=6
+		ecplo.c=10
+		add(explosions,explo)
+		nb-=1
+		end
+	end
+   
+	
+function draw_explosions()
+ for e in all(explosions) do 
+ 	circfill(e.x,e.y,e.r,e.c)
+ 	e.r-=1
+ end 
+end 
+		
+
 __gfx__
 00000000000000000000000011111111111141111111141111114111111114111111411111111411111111111111111111111111111111111111111111111111
 00000000000000000000000011111111177777111177777117777711117777711777771111777771111111111111111111111111111111111111111111111111
