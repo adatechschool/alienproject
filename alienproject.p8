@@ -20,6 +20,7 @@ function _init()
 	astro12={x=rnd(112),y=(8+rnd(70)),sprite=(4+rnd(5))}
 	astronautes={astro1,astro2,astro3,astro4,astro5,astro6,astro7,astro8,astro9,astro10,astro11,astro12}
 	create_stars()
+	explosions={}
 end
 
 
@@ -128,7 +129,7 @@ function bounce()
 		alien.y += dy
 		if alien.x<0
 	 or alien.x>120
-	 or collision(alien,astro1)
+	 or collision(alien,astro1) 
 	 or collision(alien,astro2)
 	 or collision(alien,astro3)
 	 or collision(alien,astro4)
@@ -274,6 +275,30 @@ function draw_stars()
  	pset(s.x,s.y,s.col,s.speed)
  	end
  end 
+-->8
+-- explosions 
+
+function explode(x,y,nb)
+	while(nb>0) do 
+		explo={}
+		explo.x=x
+		explo.y=y
+		explo.r=6
+		ecplo.c=10
+		add(explosions,explo)
+		nb-=1
+		end
+	end
+   
+	
+function draw_explosions()
+ for e in all(explosions) do 
+ 	circfill(e.x,e.y,e.r,e.c)
+ 	e.r-=1
+ end 
+end 
+		
+
 __gfx__
 00000000000000000000000000000000000040000000040000004000000004000000400000000400000000007000000077777777000000077777777777777777
 00000000000000000000000000000000077777000077777007777700007777700777770000777770000000007000000000000000000000070000000770000000
