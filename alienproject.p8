@@ -23,56 +23,25 @@ function _init()
 	astronautes={astro1,astro2,astro3,astro4,astro5,astro6,astro7,astro8,astro9,astro10,astro11,astro12}
 	create_stars()
 	explosions={}
+	
 end
 
-
+mode="start"
 function _update()
-	update_stars()
-	if btn(➡️)  then
-		if move_alien then
-		 bar.x+=2
- 	else 
- 		bar.x+=2 alien.x+=2
- 	end
- end
- if btn(⬅️) then
-		if move_alien then
-		 bar.x-=2 
-		else
-			bar.x-=2 alien.x-=2
-		end
-	end 	
-	if (btn(❎)) move_alien=true
-	if move_alien then
-	 bounce()
- 	kill()
- 	lost_life()
- 	update_explosions()
+	if mode=="game" then
+		update_game()
+	elseif mode=="start" then
+		update_start()
 	end
+	
 end
 
 function _draw()
-	cls()
-	map(0,0,0,0,128,128)
-	draw_stars()
-	spr(3,alien.x,alien.y)
-	spr(35,bar.x,bar.y,2,1)
-	spr(astro1.sprite+time()%2,astro1.x,astro1.y)
-	spr(astro2.sprite+time()%2,astro2.x,astro2.y)
-	spr(astro3.sprite+time()%2,astro3.x,astro3.y)
-	spr(astro4.sprite+time()%2,astro4.x,astro4.y)
-	spr(astro5.sprite+time()%2,astro5.x,astro5.y)
-	spr(astro6.sprite+time()%2,astro6.x,astro6.y)
-	spr(astro7.sprite+time()%2,astro7.x,astro7.y)
-	spr(astro8.sprite+time()%2,astro8.x,astro8.y)
-	spr(astro9.sprite+time()%2,astro9.x,astro9.y)
-	spr(astro10.sprite+time()%2,astro10.x,astro10.y)
-	spr(astro11.sprite+time()%2,astro11.x,astro11.y)
-	spr(astro12.sprite+time()%2,astro12.x,astro12.y)
-	movement_bar()	
-	draw_explosions()
-	message()
-	show_life()
+	if mode=="game" then
+		draw_game()
+	elseif mode=="start" then
+		draw_start()
+	end
 end
 -->8
 -- collision
@@ -325,6 +294,78 @@ function draw_explosions()
 		circ(e.x,e.y,e.timer/3,
 							8+e.timer%3)
 	end
+end
+-->8
+--update
+
+function update_game()
+	update_stars()
+	if btn(➡️)  then
+		if move_alien then
+		 bar.x+=2
+ 	else 
+ 		bar.x+=2 alien.x+=2
+ 	end
+ end
+ if btn(⬅️) then
+		if move_alien then
+		 bar.x-=2 
+		else
+			bar.x-=2 alien.x-=2
+		end
+	end 	
+	if (btn(❎)) move_alien=true
+	if move_alien then
+	 bounce()
+ 	kill()
+ 	lost_life()
+ 	update_explosions()
+	end
+end
+
+function update_start()
+	if btnp(🅾️) then
+		mode="game"
+	end
+end
+-->8
+-- draw
+
+function draw_game()
+	
+	cls()
+	map(0,0,0,0,128,128)
+	draw_stars()
+	spr(3,alien.x,alien.y)
+	spr(35,bar.x,bar.y,2,1)
+	spr(astro1.sprite+time()%2,astro1.x,astro1.y)
+	spr(astro2.sprite+time()%2,astro2.x,astro2.y)
+	spr(astro3.sprite+time()%2,astro3.x,astro3.y)
+	spr(astro4.sprite+time()%2,astro4.x,astro4.y)
+	spr(astro5.sprite+time()%2,astro5.x,astro5.y)
+	spr(astro6.sprite+time()%2,astro6.x,astro6.y)
+	spr(astro7.sprite+time()%2,astro7.x,astro7.y)
+	spr(astro8.sprite+time()%2,astro8.x,astro8.y)
+	spr(astro9.sprite+time()%2,astro9.x,astro9.y)
+	spr(astro10.sprite+time()%2,astro10.x,astro10.y)
+	spr(astro11.sprite+time()%2,astro11.x,astro11.y)
+	spr(astro12.sprite+time()%2,astro12.x,astro12.y)
+	movement_bar()	
+	draw_explosions()
+	message()
+	show_life()
+end
+
+
+function draw_start()
+	cls(0)
+	print("alien project",42,10,7)
+	print("press x to launch the alien",15,40,7)
+	print("to restart, press ⬇️",30,50,7)
+	print("now press c to start the game",7,80,10)
+	print("credits:manon mucchielli",1,100,11)
+	print("       juliette de quatrebarbes",5,108,11)
+	print("       gaetan sourisse",5,116,11)
 end
 __gfx__
 00000000000000000000000000000000000040000000040000004000000004000000400000000400000000007000000077777777000000077777777777777777
